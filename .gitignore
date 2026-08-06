@@ -1,0 +1,34 @@
+# Secrets — wp-config.php holds DB credentials and auth salts. Never commit it.
+wp-config.php
+.env
+.env.*
+
+# User-generated content and runtime dirs
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/upgrade-temp-backup/
+wp-content/cache/
+wp-content/backup-db/
+wp-content/blogs.dir/
+wp-content/advanced-cache.php
+wp-content/object-cache.php
+wp-content/db.php
+*.log
+
+# Theme/plugin build tooling
+node_modules/
+vendor/
+.sass-cache/
+*.map
+
+# Local dev scratch
+.local/
+sql-dumps/
+*.sql.gz
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
