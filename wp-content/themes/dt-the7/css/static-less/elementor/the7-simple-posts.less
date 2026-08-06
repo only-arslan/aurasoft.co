@@ -1,0 +1,272 @@
+@import "parts/filter-decorations-base";
+@import "parts/decorations/pagination";
+
+.the7-simple-posts.widget-divider-on .wf-cell:before {
+  content: "";
+  position: absolute;
+  bottom: calc(-1 * (var(--grid-row-gap, 0px) + var(--divider-width, 0px)) / 2);
+  left: 0;
+  width: 100%;
+  border-bottom-width: var(--divider-width, 0px);
+  border-bottom-color: var(--the7-divider-color);
+}
+.the7-simple-posts .wf-cell {
+  position: relative;
+  min-width: 0;
+}
+.the7-simple-posts .dt-css-grid {
+  grid-template-rows: auto;
+  overflow: hidden;
+}
+.the7-simple-posts .rp-heading {
+  font-family: var(--e-global-typography-the7_h3-font-family);
+  font-weight: var(--e-global-typography-the7_h3-font-weight);
+  margin-bottom: 20px;
+}
+.the7-simple-posts .wf-cell article {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.elementor-widget-the7-elements-simple-posts {
+  --image-spacing: 15px;
+}
+.the7-simple-posts .wf-cell .post-thumbnail-wrap {
+  height: fit-content;
+  height: -moz-max-content;
+  height: -webkit-max-content;
+  display: flex;
+  flex-shrink: 0;
+  width: 80px;
+  margin: 0 var(--image-spacing) 0 0;
+}
+.img-align-right .the7-simple-posts .wf-cell .post-thumbnail-wrap {
+  margin: 0 0 0 var(--image-spacing);
+}
+.the7-simple-posts .wf-cell .post-thumbnail-wrap img {
+  max-width: 100%;
+  height: auto;
+  transition: all 300ms ease;
+  border-color: var(--the7-divider-color);
+  border-width: 1px; 
+}
+.the7-simple-posts .wf-cell .post-thumbnail {
+  width: 100%;
+}
+
+.the7-simple-posts .wf-cell .post-entry-content {
+  display: flex;
+  flex-flow: column wrap;
+  flex-grow: 1;
+  overflow: hidden;
+}
+.the7-simple-posts .wf-cell .post-title {
+  font-family: var(--the7-h5-font-family);
+  font-weight: var(--the7-h5-font-weight);
+  font-style: var(--the7-h5-font-style);
+  font-size: var(--the7-h5-font-size-desktop);
+  line-height: var(--the7-h5-line-height-desktop);
+  text-transform: var(--the7-h5-text-transform);
+  color: var(--the7-h5-color);
+  display: inline-block;
+  text-decoration: none;
+  transition: all 300ms ease;
+  margin-bottom: 0 !important;
+}
+.the7-simple-posts .wf-cell .post-title:hover {
+  color: var(--the7-h5-color);
+}
+.the7-simple-posts .short-description {
+  font-family: var(--the7-base-font-family);
+  font-size: var(--the7-base-font-size);
+  font-weight: var(--the7-base-font-weight);
+  line-height: var(--the7-base-line-height);
+  font-style: var(--the7-base-font-style);
+  color: var(--the7-base-color);
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+.the7-simple-posts .post-details.details-type-btn:not(.class-1):not(.class-2) {
+  font-family: var(--the7-btn-s-font-family);
+  font-size: var(--the7-btn-s-font-size);
+  line-height: var(--the7-btn-s-line-height);
+  font-weight: var(--the7-btn-s-font-weight);
+  text-transform: var(--the7-btn-s-text-transform);
+  border-width: var(--the7-btn-s-border-width);
+  border-radius: var(--the7-btn-s-border-radius);
+  padding-top: var(--the7-btn-s-padding-top);
+  padding-right: var(--the7-btn-s-padding-right);
+  padding-left: var(--the7-btn-s-padding-left);
+  padding-bottom: var(--the7-btn-s-padding-bottom);
+  color: var(--the7-btn-color);
+  display: inline-block;
+  background: var(--the7-button-normal-bg-color);
+  border: var(--the7-btn-s-border-width) solid var(--the7-btn-border-color);
+  transition: all 0.3s ease;
+  width: fit-content;
+  //float: none;
+  vertical-align: middle;
+  margin-top: 15px;
+}
+
+#page .elementor-widget.elementor-widget-the7-elements-simple-posts .post-entry-content .post-details i {
+  font-size: inherit;
+  line-height: inherit;
+  vertical-align: middle;
+}
+
+.elementor-widget.elementor-widget-the7-elements-simple-posts .post-entry-content .post-details i:first-child {
+  margin: 0 7px 0 0;
+}
+
+.elementor-widget.elementor-widget-the7-elements-simple-posts .post-entry-content .post-details i:last-child {
+  margin: 0 0 0 7px;
+}
+
+.the7-simple-posts .post-entry-content .post-details:after {
+  display: none;
+}
+.the7-simple-posts .post-details.post-details:not(.class-1):not(.class-2):hover {
+  color: var(--the7-btn-hover-color);
+  border-color: var(--the7-btn-border-hover-color);
+  background: var(--the7-btn-hover-bg-color);
+}
+
+.the7-simple-posts .wf-cell .heading {
+  max-width: 100%;
+  margin-bottom: 0;
+  font-size: var(--the7-h5-font-size-desktop);
+  line-height: var(--the7-h5-line-height-desktop);
+}
+.the7-simple-posts.title-to-line .wf-cell .post-title {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // A hack to remove bottom extra space while using overflow: hidden; and display: inline-block;
+  vertical-align: top;
+}
+.the7-simple-posts.desc-to-line .short-description {
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.the7-simple-posts .post-entry-content ul li {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  justify-content: flex-start;
+}
+.the7-simple-posts .post-entry-content ul {
+  margin-left: 0;
+  margin-right: 0;
+}
+// TODO: extract somewhere.
+.elementor-widget .the7-simple-posts .img-ratio-wrapper {
+  display: block;
+  line-height: 0;
+}
+
+.elementor-widget-the7-elements-simple-posts:not(.preserve-img-ratio-y) .img-ratio-wrapper {
+  padding-bottom: 100%;
+}
+.elementor-widget-the7-elements-simple-posts:not(.preserve-img-ratio-y) .img-ratio-wrapper img {
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.elementor-widget .the7-simple-posts .img-ratio-wrapper.compat-object-fit img {
+  display: none;
+}
+.elementor-widget .the7-simple-posts .img-ratio-wrapper.compat-object-fit {
+  background-size: cover;
+  background-position: center center;
+}
+.elementor-widget.preserve-img-ratio-y .the7-simple-posts .img-ratio-wrapper.compat-object-fit {
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.paginator a.button-load-more {
+  width: auto;
+  height: auto;
+}
+.paginator a.button-load-more i {
+  line-height: inherit;
+  font-size: inherit;
+}
+.paginator .disabled {
+  display: none;
+}
+.elementor-widget.elementor-widget-the7-elements-simple-posts .paginator {
+  --filter-title-color-normal: var(--the7-title-color);
+  --filter-title-color-hover: var(--the7-title-color);
+  --filter-title-color-active: var(--the7-title-color);
+  --filter-pointer-border-width: 2px;
+  --filter-pointer-bg-radius: var(--the7-general-border-radius);
+  --filter-pointer-bg-color-active: var(--the7-accent-color);
+  --filter-pointer-bg-color-hover: var(--the7-accent-color);
+  line-height: var(--the7-text-big-line-height);
+  font-size: var(--the7-text-big-font-size);
+  font-weight: normal;
+  line-height: 1;
+}
+.elementor-widget.elementor-widget-the7-elements-simple-posts .paginator .button-load-more {
+  line-height: 1;
+}
+.elementor-widget.elementor-widget-the7-elements-simple-posts .paginator .button-load-more .button-caption {
+  font-weight: inherit;
+}
+.elementor-widget.elementor-widget-the7-elements-simple-posts .paginator .button-load-more i:first-child {
+  margin: 0 5px 0 0;
+}
+.elementor-widget.elementor-widget-the7-elements-simple-posts .paginator .button-load-more i:last-child {
+  margin: 0 0 0 5px;
+}
+.elementor-widget.elementor-widget-the7-elements-simple-posts .paginator a {
+  font-weight: normal;
+  margin: 0 5px;
+  padding: 5px 10px;
+}
+.the7-simple-posts .entry-meta {
+  margin-top: 5px;
+}
+
+.the7-simple-posts .entry-meta,
+.the7-simple-posts .entry-meta a,
+.the7-simple-posts .entry-meta span,
+.the7-simple-posts .entry-meta a * {
+  font-family: var(--the7-base-font-family);
+  font-size: var(--the7-text-small);
+  line-height: var(--the7-text-small-line-height);
+  font-weight: var(--the7-base-font-weight);
+  font-style: var(--the7-base-font-style);
+}
+
+.the7-simple-posts .entry-meta .meta-item:not(:last-child) {
+  margin: 0 5px 0 0;
+  padding: 0;
+}
+.the7-simple-posts .entry-meta .meta-item:not(:first-child):before {
+  position: relative;
+  box-shadow: none;
+  margin: 0 5px 0 0;
+  height: auto;
+  width: auto;
+  content: '';
+}
+
+.the7-simple-posts .entry-meta .meta-item:after {
+  right: inherit;
+  width: inherit;
+  height: inherit;
+  top: inherit;
+  transform: inherit;
+  content: "";
+  background: none;
+}
