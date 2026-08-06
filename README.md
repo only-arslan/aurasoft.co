@@ -25,20 +25,59 @@ Override with environment variables (`WP_DB_NAME`, `WP_SITE_URL`,
 These are **local development credentials only**. Production must use its own
 `wp-config.php` with real secrets.
 
-## Installing the theme
+## Theme
 
-The theme is distributed as a zip. Install it from a local file:
+**The7** (`dt-the7`) **9.13.0.1** — commercial theme by Dream-Theme, purchased
+via ThemeForest. Installed and active; it is committed to this repository.
 
-```bash
-wp theme install /path/to/aurasoft-theme.zip --activate
-```
-
-Then commit it, since the theme lives in this repo:
+To reinstall from a zip:
 
 ```bash
-git add -f wp-content/themes/<theme-slug>
-git commit -m "Add aurasoft theme"
+wp theme install /path/to/the7.zip --activate
 ```
+
+### Version caveat
+
+This build of The7 is from June 2021 and declares `Tested up to: 5.7.2` and
+`Requires PHP: 5.6.20`. It is running on WordPress 7.0.2 and PHP 8.4, well
+outside its supported range.
+
+It does work — front end, wp-admin, the theme dashboard, the customizer and
+the REST API were all verified with no fatal errors — but it carries a lot of
+PHP 8.4 deprecation debt. A ThemeForest purchase includes lifetime updates, so
+**downloading the current release from your ThemeForest account is strongly
+recommended** over building on this 2021 build.
+
+The bundled LESS compiler emits ~238,000 deprecation notices per stylesheet
+rebuild. `wp-content/mu-plugins/000-dev-error-reporting.php` filters
+`E_DEPRECATED` out of the log so real errors stay visible; without it a single
+theme-option change writes ~50 MB to `debug.log`.
+
+### Companion plugins
+
+The7 leans heavily on plugins that are **not** bundled with the theme:
+
+| Plugin | Source | Available here? |
+|---|---|---|
+| Elementor | wordpress.org | ❌ blocked |
+| WooCommerce | wordpress.org | ❌ blocked |
+| Contact Form 7 | wordpress.org | ❌ blocked |
+| The7 Elements (`dt-the7-core`) | repo.the7.io | ❌ blocked |
+| Slider Revolution | repo.the7.io | ❌ blocked |
+| WPBakery (`js_composer`) | repo.the7.io | ❌ blocked |
+
+The theme renders correctly without them, but page building, sliders, demo
+content and The7's custom post types all depend on them. Install them from
+local zips, or do that part of the work on the real host.
+
+### Licensing
+
+Theme registration calls `repo.the7.io`, which is blocked here, so the purchase
+code cannot be activated in this sandbox — that also disables theme updates and
+demo-content import. Registration works normally on the production host.
+
+The auto-deactivation notice only fires on an explicit remote de-registration
+response, so an unreachable licence server does not disable the theme.
 
 ## Repository layout
 
