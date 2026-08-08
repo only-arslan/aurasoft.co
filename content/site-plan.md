@@ -129,7 +129,8 @@ Full-cycle mobile game development, Android and iOS. We come in at any stage —
 a concept on a napkin, a prototype that stalled, or a live game that needs a
 team who can pick it up without breaking it.
 
-- Unity / `[Unreal — remove if not offered]`
+- Unity and Unreal
+- Native tooling — Android Studio and Xcode, so builds behave on real devices
 - Gameplay programming, systems design, level design
 - Full art production — characters, environments, VFX, UI
 - Store release, ASO, live-ops and post-launch updates
@@ -139,10 +140,13 @@ team who can pick it up without breaking it.
 Mobile apps and custom software. Same engineers who ship games under deadline —
 which tends to show in how the work holds up.
 
-- Native and cross-platform mobile apps
-- Backends, APIs, admin tooling
-- `[Add your real stack: Flutter, React Native, .NET, Node…]`
+- Native mobile apps — Android Studio and Xcode, Java for Android
+- Backends, APIs, automation and tooling in Python
+- Desktop and simulation work in Unity or Unreal where it fits better than a
+  web stack
 - Maintenance and support after launch
+
+**Stack:** Unity · Unreal · Android Studio · Xcode · Java · Python
 
 ### Art & Asset Production
 
@@ -193,7 +197,7 @@ Consistent, scalable, drop-in.
 
 **Headline:** A studio in two places.
 
-Aurasoft started `[YEAR]` and works across Australia and Pakistan. We build our
+Aurasoft started in 2018 and works across Australia and Pakistan. We build our
 own games, take on client work we find interesting, and sell the art we make
 along the way.
 

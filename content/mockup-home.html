@@ -1,0 +1,506 @@
+<title>Aurasoft — Homepage Direction</title>
+<style>
+  /* ————————————————————————————————————————————————
+     Aurasoft — neon direction, committed dark.
+     Single visual world by intent (an editor viewport at night),
+     so every colour is painted explicitly rather than inherited.
+     ———————————————————————————————————————————————— */
+  :root {
+    --void:        #06060D;
+    --base:        #0A0A14;
+    --surface:     #12121F;
+    --raised:      #1A1A2E;
+
+    --cyan:        #00F0FF;
+    --violet:      #A24DFF;
+    --magenta:     #FF2E88;
+
+    --text-hi:     #F2F2F8;
+    --text-mid:    #9C9CB4;   /* violet-biased grey, matched to the accents */
+    --text-low:    #616179;
+
+    --edge:        rgba(162, 77, 255, 0.16);
+
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+            "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas,
+            "Liberation Mono", monospace;
+
+    --shell: min(1200px, 100% - 3rem);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--base);
+    color: var(--text-hi);
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+
+  a { color: var(--cyan); text-decoration: none; }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Utility layer — monospace does the technical talking.
+     These are a software house; the labels should read like a toolchain. */
+  .label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-low);
+  }
+
+  .shell { width: var(--shell); margin-inline: auto; }
+
+  /* ——— nav ——— */
+  .nav {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(10, 10, 20, 0.82);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--edge);
+  }
+  .nav-in {
+    width: var(--shell); margin-inline: auto;
+    display: flex; align-items: center; gap: 2.5rem;
+    padding-block: 1.1rem;
+  }
+  .brand {
+    font-weight: 800; font-size: 1.15rem;
+    letter-spacing: -0.03em; color: var(--text-hi);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .brand-mark {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan), 0 0 22px rgba(0, 240, 255, 0.5);
+  }
+  .nav-links { display: flex; gap: 1.9rem; margin-left: auto; flex-wrap: wrap; }
+  .nav-links a {
+    font-size: 0.9rem; color: var(--text-mid);
+    transition: color 0.18s ease;
+  }
+  .nav-links a:hover { color: var(--text-hi); }
+
+  /* ——— hero ——— */
+  .hero { position: relative; overflow: hidden; background: var(--void); }
+  #grid {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    display: block; opacity: 0.5;
+  }
+  .hero-in {
+    position: relative;
+    width: var(--shell); margin-inline: auto;
+    padding-block: clamp(5rem, 14vw, 9.5rem);
+    display: flex; flex-direction: column; gap: 2rem;
+    align-items: flex-start;
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 7.5vw, 5.2rem);
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 1.02;
+    max-width: 16ch;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(120deg, var(--cyan), var(--violet) 55%, var(--magenta));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero p {
+    font-size: clamp(1.02rem, 1.7vw, 1.2rem);
+    color: var(--text-mid);
+    max-width: 56ch;
+  }
+  .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--sans);
+    font-size: 0.94rem; font-weight: 650;
+    padding: 0.85rem 1.6rem;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+  }
+  .btn-solid {
+    background: var(--cyan); color: var(--void);
+    box-shadow: 0 0 22px rgba(0, 240, 255, 0.34), 0 0 60px rgba(0, 240, 255, 0.12);
+  }
+  .btn-ghost {
+    background: transparent; color: var(--cyan);
+    border-color: rgba(0, 240, 255, 0.42);
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-ghost:hover { border-color: var(--cyan); }
+
+  /* ——— sections ——— */
+  section { padding-block: clamp(4rem, 9vw, 7rem); }
+  .sec-head { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 3rem; }
+  .sec-head h2 {
+    font-size: clamp(1.7rem, 3.6vw, 2.5rem);
+    font-weight: 800; letter-spacing: -0.03em;
+  }
+  .sec-head p { color: var(--text-mid); max-width: 60ch; }
+
+  /* ——— three pillars ————————————————————————————
+     One hue per revenue line. The colour is doing real work here:
+     cyan = games, violet = software, magenta = assets, and those
+     hues follow each line through the rest of the page. */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .pillar {
+    background: var(--surface);
+    border: 1px solid var(--edge);
+    border-top: 2px solid var(--hue);
+    padding: 2rem 1.6rem 2.2rem;
+    display: flex; flex-direction: column; gap: 0.9rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .pillar:hover { background: var(--raised); transform: translateY(-3px); }
+  .pillar h3 {
+    font-size: 1.28rem; font-weight: 750; letter-spacing: -0.02em;
+    color: var(--hue);
+  }
+  .pillar p { color: var(--text-mid); font-size: 0.95rem; }
+  .pillar .label { color: var(--text-low); }
+  .p-games    { --hue: var(--cyan); }
+  .p-software { --hue: var(--violet); }
+  .p-assets   { --hue: var(--magenta); }
+
+  /* ——— work grid ——— */
+  .work { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--edge);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover { border-color: rgba(0, 240, 255, 0.5); transform: translateY(-3px); }
+  .shot {
+    aspect-ratio: 16 / 10;
+    background:
+      radial-gradient(circle at 30% 35%, rgba(0,240,255,0.16), transparent 60%),
+      radial-gradient(circle at 72% 68%, rgba(255,46,136,0.16), transparent 60%),
+      var(--void);
+    border-bottom: 1px solid var(--edge);
+    display: grid; place-items: center;
+  }
+  .shot span {
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.14em; color: var(--text-low);
+    border: 1px dashed rgba(162,77,255,0.4);
+    padding: 0.45rem 0.85rem;
+  }
+  .card-body { padding: 1.25rem 1.3rem 1.5rem; display: flex; flex-direction: column; gap: 0.55rem; }
+  .card-body h3 { font-size: 1.05rem; font-weight: 700; }
+  .card-body p { color: var(--text-mid); font-size: 0.9rem; }
+  .tags { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-top: 0.3rem; }
+  .tag {
+    font-family: var(--mono); font-size: 0.66rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-mid);
+    border: 1px solid var(--edge);
+    padding: 0.24rem 0.55rem;
+  }
+
+  /* ——— stats ——— */
+  .stats-band { background: var(--surface); border-block: 1px solid var(--edge); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .stat { display: flex; flex-direction: column; gap: 0.35rem; }
+  .stat b {
+    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+    font-weight: 850; letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-hi);
+  }
+
+  /* ——— stack ——— */
+  .stack-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .chip {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--text-mid);
+    border: 1px solid var(--edge);
+    background: var(--surface);
+    padding: 0.5rem 0.9rem;
+  }
+
+  /* ——— closing ——— */
+  .close-in {
+    background: var(--surface);
+    border: 1px solid var(--edge);
+    border-left: 2px solid var(--magenta);
+    padding: clamp(2.2rem, 5vw, 3.4rem);
+    display: flex; flex-direction: column; gap: 1.2rem; align-items: flex-start;
+  }
+  .close-in h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); font-weight: 800; letter-spacing: -0.03em; }
+  .close-in p { color: var(--text-mid); max-width: 52ch; }
+
+  footer { border-top: 1px solid var(--edge); background: var(--void); }
+  .foot-in {
+    width: var(--shell); margin-inline: auto;
+    padding-block: 2.5rem;
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    justify-content: space-between; align-items: center;
+  }
+
+  .note {
+    width: var(--shell); margin: 0 auto 2.5rem;
+    border: 1px dashed rgba(162,77,255,0.4);
+    background: rgba(162,77,255,0.05);
+    padding: 1rem 1.2rem;
+    color: var(--text-mid); font-size: 0.86rem;
+  }
+  .note strong { color: var(--text-hi); }
+
+  @media (max-width: 860px) {
+    .pillars, .work { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<nav class="nav">
+  <div class="nav-in">
+    <div class="brand"><span class="brand-mark"></span>AURASOFT</div>
+    <div class="nav-links">
+      <a href="#games">Games</a>
+      <a href="#services">Services</a>
+      <a href="#assets">Assets</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="grid" aria-hidden="true"></canvas>
+  <div class="hero-in">
+    <span class="label">Game &amp; software studio · Australia + Pakistan · est. 2018</span>
+    <h1>We make games. And the <em>tools to build them.</em></h1>
+    <p>Aurasoft ships mobile titles, builds software for clients, and sells the 3D, 2D
+       and UI assets we make along the way. Three things, one craft.</p>
+    <div class="cta-row">
+      <button class="btn btn-solid">Play our games</button>
+      <button class="btn btn-ghost">Browse assets</button>
+    </div>
+  </div>
+</header>
+
+<section id="services">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="label">What we do</span>
+      <h2>Three lines of work that feed each other</h2>
+      <p>The art we build for our own games becomes the packs we sell. The engineering
+         that ships those games is what clients hire us for.</p>
+    </div>
+    <div class="pillars">
+      <article class="pillar p-games">
+        <span class="label">01 — Games</span>
+        <h3>Mobile titles, start to finish</h3>
+        <p>Android and iOS, built end to end — concept, art, code, release, and the long
+           tail of updates after launch.</p>
+      </article>
+      <article class="pillar p-software">
+        <span class="label">02 — Software</span>
+        <h3>Apps and custom builds</h3>
+        <p>Native mobile and backend work from the same engineers who ship games under
+           deadline. It shows in how the work holds up.</p>
+      </article>
+      <article class="pillar p-assets">
+        <span class="label">03 — Assets</span>
+        <h3>3D, 2D and UI kits</h3>
+        <p>Production-ready packs made for real projects, because they came out of ours.
+           Available here and on itch.io.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="games" style="background: var(--void);">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="label">Shipped work</span>
+      <h2>Games we've made</h2>
+      <p>Everything here we made ourselves — design, art, code, release.</p>
+    </div>
+    <div class="work">
+      <article class="card">
+        <div class="shot"><span>KEY ART</span></div>
+        <div class="card-body">
+          <h3>Game title</h3>
+          <p>One or two lines on what the game is and why it's worth playing.</p>
+          <div class="tags"><span class="tag">iOS</span><span class="tag">Android</span><span class="tag">Unity</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="shot"><span>KEY ART</span></div>
+        <div class="card-body">
+          <h3>Game title</h3>
+          <p>One or two lines on what the game is and why it's worth playing.</p>
+          <div class="tags"><span class="tag">Android</span><span class="tag">Unreal</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="shot"><span>KEY ART</span></div>
+        <div class="card-body">
+          <h3>In development</h3>
+          <p>Work in progress. Showing it signals momentum — worth keeping on the page.</p>
+          <div class="tags"><span class="tag">Coming soon</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="assets">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="label">Asset store</span>
+      <h2>Made for our games. Packaged for yours.</h2>
+      <p>Every pack has shipped in something real — that's the only quality bar that matters.</p>
+    </div>
+    <div class="work">
+      <article class="card">
+        <div class="shot"><span>PACK ART</span></div>
+        <div class="card-body">
+          <h3>3D assets</h3>
+          <p>Characters, props, environments. Game-ready topology, sane poly counts, PBR textured.</p>
+          <div class="tags"><span class="tag">Unity</span><span class="tag">Unreal</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="shot"><span>PACK ART</span></div>
+        <div class="card-body">
+          <h3>2D assets</h3>
+          <p>Sprites, tilesets, backgrounds and FX sheets. Layered sources included, so you can edit them.</p>
+          <div class="tags"><span class="tag">Layered</span><span class="tag">PNG</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="shot"><span>PACK ART</span></div>
+        <div class="card-body">
+          <h3>UI kits</h3>
+          <p>Complete interface sets — menus, HUDs, buttons, icons, popups. Consistent and drop-in.</p>
+          <div class="tags"><span class="tag">Scalable</span><span class="tag">Figma</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="stats-band" id="about">
+  <div class="shell">
+    <div class="stats">
+      <div class="stat"><b>2018</b><span class="label">Building since</span></div>
+      <div class="stat"><b>2</b><span class="label">Studios — AU &amp; PK</span></div>
+      <div class="stat"><b>3</b><span class="label">Asset formats — 3D / 2D / UI</span></div>
+      <div class="stat"><b>iOS + Android</b><span class="label">Platforms we ship</span></div>
+    </div>
+    <div style="margin-top:3rem; display:flex; flex-direction:column; gap:1rem;">
+      <span class="label">Toolchain</span>
+      <div class="stack-row">
+        <span class="chip">Unity</span><span class="chip">Unreal</span>
+        <span class="chip">Android Studio</span><span class="chip">Xcode</span>
+        <span class="chip">Java</span><span class="chip">Python</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="shell">
+    <div class="close-in">
+      <span class="label">Start something</span>
+      <h2>Tell us what you're building.</h2>
+      <p>Client project, asset question, or you just want to talk shop — we read
+         everything and reply properly. Two timezones, so it's usually quick.</p>
+      <button class="btn btn-solid">Start a conversation</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <div class="brand"><span class="brand-mark"></span>AURASOFT</div>
+    <span class="label">Australia · Pakistan — est. 2018</span>
+  </div>
+</footer>
+
+<script>
+  /* A slow perspective grid — the floor of a 3D viewport.
+     Chosen because this studio's craft is 3D asset production; the hero
+     backdrop is the tool they actually work in, not generic particles. */
+  (function () {
+    var c = document.getElementById('grid');
+    if (!c) return;
+    var ctx = c.getContext('2d');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var off = 0, raf;
+
+    function size() {
+      var r = window.devicePixelRatio || 1;
+      c.width = c.offsetWidth * r;
+      c.height = c.offsetHeight * r;
+      ctx.setTransform(r, 0, 0, r, 0, 0);
+    }
+
+    function draw() {
+      var w = c.offsetWidth, h = c.offsetHeight;
+      ctx.clearRect(0, 0, w, h);
+      var hz = h * 0.42;            // horizon
+      var step = 46;
+
+      ctx.lineWidth = 1;
+
+      // receding horizontals, tightening toward the horizon
+      for (var i = 0; i < 26; i++) {
+        var t = (i + (off % 1)) / 26;
+        var y = hz + Math.pow(t, 2.4) * (h - hz) * 1.5;
+        if (y > h) continue;
+        ctx.strokeStyle = 'rgba(0, 240, 255, ' + (0.30 * (1 - t)).toFixed(3) + ')';
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+      }
+
+      // verticals converging on the vanishing point
+      var vx = w / 2;
+      for (var j = -18; j <= 18; j++) {
+        var x = vx + j * step * 2.4;
+        ctx.strokeStyle = 'rgba(162, 77, 255, ' + (0.20 - Math.abs(j) * 0.008).toFixed(3) + ')';
+        if (0.20 - Math.abs(j) * 0.008 <= 0) continue;
+        ctx.beginPath(); ctx.moveTo(vx + (x - vx) * 0.06, hz); ctx.lineTo(x, h); ctx.stroke();
+      }
+
+      // horizon glow
+      var g = ctx.createLinearGradient(0, hz - 60, 0, hz + 8);
+      g.addColorStop(0, 'rgba(0,240,255,0)');
+      g.addColorStop(1, 'rgba(0,240,255,0.16)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, hz - 60, w, 68);
+    }
+
+    function loop() { off += 0.0016; draw(); raf = requestAnimationFrame(loop); }
+
+    size(); draw();
+    if (!reduce) loop();
+    window.addEventListener('resize', function () { size(); draw(); });
+  })();
+</script>
