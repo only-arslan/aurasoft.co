@@ -190,6 +190,83 @@ body#the7-body .dt-btn {
   box-shadow: 0 0 26px rgba(0, 240, 255, 0.22);
 }
 
+/* --- block layout ————————————————————————————————————
+   Classes emitted by scripts/site/*.py on the Home, Services and Assets
+   pages. Columns give the pillars a real grid; each card owns one accent
+   so colour tracks meaning rather than decorating. */
+
+.content .wp-block-columns {
+  display: flex;
+  gap: 1.25rem;
+  margin-block: 2rem;
+  align-items: stretch;
+}
+.content .wp-block-column { flex: 1 1 0; min-width: 0; }
+
+.content .aura-card {
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  border-top: 2px solid var(--cyan);
+  padding: 1.6rem 1.4rem 1.8rem;
+  height: 100%;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.content .aura-card:hover { background: var(--raised); transform: translateY(-3px); }
+.content .aura-card h3 { margin-top: 0; font-size: 1.15rem; }
+.content .aura-card p { color: var(--text-mid); font-size: 0.95rem; margin-bottom: 0; }
+
+.content .aura-cyan    { border-top-color: var(--cyan); }
+.content .aura-cyan    h3 { color: var(--cyan); }
+.content .aura-violet  { border-top-color: var(--violet); }
+.content .aura-violet  h3 { color: var(--violet); }
+.content .aura-magenta { border-top-color: var(--magenta); }
+.content .aura-magenta h3 { color: var(--magenta); }
+
+/* Eyebrow — monospace, because this is a software house and the small
+   type should read like a toolchain. */
+.content .aura-eyebrow {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-low);
+  margin-bottom: 0.4rem;
+}
+
+.content .aura-lead {
+  font-size: 1.18rem;
+  line-height: 1.6;
+  color: var(--text-mid);
+}
+
+.content .aura-chips {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  color: var(--cyan);
+  letter-spacing: 0.02em;
+}
+
+/* Buttons — the fill carries the single glow; the ghost stays quiet. */
+.content .wp-block-buttons { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-block: 1.8rem; }
+
+.content .aura-btn > .wp-block-button__link {
+  background: var(--cyan);
+  color: var(--void);
+  border: 1px solid transparent;
+  box-shadow: 0 0 22px rgba(0, 240, 255, 0.32), 0 0 60px rgba(0, 240, 255, 0.12);
+}
+.content .aura-btn-ghost > .wp-block-button__link {
+  background: transparent;
+  color: var(--cyan);
+  border: 1px solid rgba(0, 240, 255, 0.45);
+  box-shadow: none;
+}
+.content .aura-btn-ghost > .wp-block-button__link:hover { border-color: var(--cyan); }
+
+@media (max-width: 800px) {
+  .content .wp-block-columns { flex-direction: column; }
+}
+
 /* --- scrollbar ---------------------------------------------------------- */
 
 ::-webkit-scrollbar { width: 10px; }
