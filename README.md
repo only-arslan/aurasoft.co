@@ -79,6 +79,39 @@ demo-content import. Registration works normally on the production host.
 The auto-deactivation notice only fires on an explicit remote de-registration
 response, so an unreachable licence server does not disable the theme.
 
+## Backups
+
+This repository tracks WordPress core and the theme. It does **not** track the
+database or uploads — and that is where the actual site lives. Every theme
+option, page layout, menu, widget and post is stored in the database, so a
+checkout of this repo alone restores the code and none of the site.
+
+```bash
+./scripts/backup.sh              # database + uploads
+./scripts/backup.sh --db-only    # database only
+
+./scripts/restore.sh             # restore the most recent backup
+./scripts/restore.sh --list      # show available backups
+./scripts/restore.sh 20260808-145329
+```
+
+Backups are written to `backups/` (gitignored) and the last 10 of each kind are
+kept. `restore.sh` drops the current database before importing, and asks for
+confirmation first.
+
+Both scripts read credentials from `wp-config.php` via WP-CLI, so they behave
+identically on the dev container and on the production host.
+
+Dumps contain user emails and password hashes. Keep them out of version control
+and copy them somewhere off the machine — a backup that only exists on the
+server it backs up is not a backup.
+
+To run one nightly on the production host:
+
+```
+0 3 * * * cd /var/www/html && ./scripts/backup.sh >> /var/log/wp-backup.log 2>&1
+```
+
 ## Repository layout
 
 ```

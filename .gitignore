@@ -21,10 +21,15 @@ vendor/
 .sass-cache/
 *.map
 
+# Backups — database dumps contain user emails and password hashes, and media
+# archives are large. Both belong off-machine, not in version control.
+backups/
+sql-dumps/
+*.sql
+*.sql.gz
+
 # Local dev scratch
 .local/
-sql-dumps/
-*.sql.gz
 
 # OS / editor noise
 .DS_Store
