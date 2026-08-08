@@ -79,6 +79,37 @@ demo-content import. Registration works normally on the production host.
 The auto-deactivation notice only fires on an explicit remote de-registration
 response, so an unreachable licence server does not disable the theme.
 
+## MCP connection to the live site
+
+`.mcp.json` declares the live site's [WordPress MCP](https://github.com/Automattic/wordpress-mcp)
+server, so a cloud session can read and edit the site directly.
+
+Two things must be in place for it to connect:
+
+1. **`WP_MCP_TOKEN`** — a JWT generated at *Settings → WordPress MCP* on the live
+   site, set as an environment variable on the cloud environment. It is
+   referenced as `${WP_MCP_TOKEN}` and never committed.
+2. **`aurasoft.co` on the environment's network allowlist** — set Network access
+   to **Custom**, add the domain, and keep *"Also include default list of common
+   package managers"* checked so package registries still work.
+
+Both are read when a session starts, so changes need a new session.
+
+**Permalinks must be set to "Post name"** (Settings → Permalinks). Under the
+default "Plain" setting `/wp-json/` returns 404 and only the
+`?rest_route=/...` form resolves, which breaks the endpoint URL above.
+
+To verify the endpoint by hand:
+
+```bash
+# 401 = plugin live and asking for auth; 404 = plugin inactive or permalinks wrong
+curl -sS -o /dev/null -w "%{http_code}\n" https://aurasoft.co/wp-json/wp/v2/wpmcp/streamable
+```
+
+Tokens are admin-scoped and short-lived by design. Regenerate on the site to
+revoke an old one, and keep the lifetime short — cloud environment variables are
+visible to anyone using the environment and are not a secrets store.
+
 ## Backups
 
 This repository tracks WordPress core and the theme. It does **not** track the

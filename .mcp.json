@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "wordpress": {
+      "type": "http",
+      "url": "https://aurasoft.co/wp-json/wp/v2/wpmcp/streamable",
+      "headers": {
+        "Authorization": "Bearer ${WP_MCP_TOKEN}"
+      }
+    }
+  }
+}
