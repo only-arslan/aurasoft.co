@@ -1,0 +1,209 @@
+/* ==========================================================================
+   Aurasoft — neon theme for The7
+   Paste into: The7 → Theme Options → Advanced → Custom CSS
+   (or Appearance → Customize → Additional CSS)
+
+   Selectors below were read off the live markup, not guessed: The7 wraps
+   everything in #the7-body / .main-gradient / .content, and Gutenberg
+   headings carry .wp-block-heading.
+
+   Palette and rules are documented in content/brand.md.
+   ========================================================================== */
+
+:root {
+  --void:     #06060D;
+  --base:     #0A0A14;
+  --surface:  #12121F;
+  --raised:   #1A1A2E;
+
+  --cyan:     #00F0FF;
+  --violet:   #A24DFF;
+  --magenta:  #FF2E88;
+
+  --text-hi:  #F2F2F8;
+  --text-mid: #9C9CB4;
+  --text-low: #616179;
+
+  --edge:     rgba(162, 77, 255, 0.16);
+}
+
+/* --- grounds ------------------------------------------------------------ */
+
+body#the7-body,
+#main,
+.main-gradient,
+.content,
+.wf-container-main {
+  background: var(--base) !important;
+  color: var(--text-hi);
+}
+
+#page { background: var(--base); }
+
+/* --- typography --------------------------------------------------------- */
+
+body#the7-body,
+body#the7-body p,
+body#the7-body li {
+  color: var(--text-hi);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+body#the7-body h1,
+body#the7-body h2,
+body#the7-body h3,
+body#the7-body h4 {
+  color: var(--text-hi);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+body#the7-body h1 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); font-weight: 900; line-height: 1.06; }
+body#the7-body h2 { font-size: clamp(1.6rem, 3.2vw, 2.3rem); font-weight: 800; margin-top: 2.6rem; }
+body#the7-body h3 { font-size: 1.25rem; font-weight: 700; color: var(--cyan); margin-top: 1.8rem; }
+
+/* The page's own H1 gets the signature gradient — once per page, no more. */
+.content h1.wp-block-heading:first-of-type {
+  background: linear-gradient(120deg, var(--cyan), var(--violet) 55%, var(--magenta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Lead paragraph — the bolded intro line on each page. */
+.content p.lead,
+.content p:has(> strong:only-child) {
+  font-size: 1.2rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+}
+
+.content strong { color: var(--text-hi); }
+.content em { color: var(--text-low); }
+
+/* --- links -------------------------------------------------------------- */
+
+.content a,
+body#the7-body a { color: var(--cyan); }
+.content a:hover { color: var(--magenta); }
+
+a:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+/* --- header ------------------------------------------------------------- */
+
+.masthead,
+.masthead.solid-bg,
+#phantom .masthead {
+  background: rgba(10, 10, 20, 0.9) !important;
+  border-bottom: 1px solid var(--edge);
+  box-shadow: none !important;
+}
+
+.masthead .main-nav > li > a { color: var(--text-mid) !important; }
+.masthead .main-nav > li > a:hover,
+.masthead .main-nav > li.act > a { color: var(--cyan) !important; }
+
+/* --- page title bar ----------------------------------------------------- */
+
+.page-title,
+.page-title.solid-bg {
+  background: var(--void) !important;
+  border-bottom: 1px solid var(--edge);
+}
+.page-title h1 { color: var(--text-hi) !important; }
+.page-title .breadcrumbs,
+.page-title .breadcrumbs a { color: var(--text-low) !important; }
+
+/* --- layout: these are landing pages, not blog posts --------------------- */
+
+.sidebar,
+.sidebar-content { display: none !important; }
+
+.wf-container-main > .wf-td.sidebar-right,
+.wf-container-main > .wf-td.sidebar-left { display: none !important; }
+
+.content.wf-td {
+  width: 100% !important;
+  max-width: 68ch;
+  margin-inline: auto;
+  float: none !important;
+  padding-block: 3.5rem !important;
+}
+
+/* --- rules and separators ----------------------------------------------- */
+
+.content hr.wp-block-separator {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cyan), var(--violet) 50%, transparent);
+  opacity: 0.55;
+  margin-block: 3rem;
+}
+
+/* --- lists -------------------------------------------------------------- */
+
+.content ul { padding-left: 1.1rem; }
+.content ul li {
+  margin-block: 0.5rem;
+  color: var(--text-mid);
+}
+.content ul li::marker { color: var(--cyan); }
+
+/* --- buttons ------------------------------------------------------------ */
+
+.content .wp-block-button__link,
+body#the7-body .dt-btn {
+  background: var(--cyan) !important;
+  color: var(--void) !important;
+  border: 0 !important;
+  border-radius: 3px !important;
+  font-weight: 650;
+  padding: 0.85rem 1.6rem !important;
+  box-shadow: 0 0 22px rgba(0, 240, 255, 0.32), 0 0 60px rgba(0, 240, 255, 0.12);
+  transition: transform 0.16s ease;
+}
+.content .wp-block-button__link:hover { transform: translateY(-2px); }
+
+/* --- footer ------------------------------------------------------------- */
+
+.footer,
+.footer.solid-bg {
+  background: var(--void) !important;
+  border-top: 1px solid var(--edge);
+  color: var(--text-low);
+}
+.footer a { color: var(--text-mid); }
+.footer a:hover { color: var(--cyan); }
+
+/* --- images ------------------------------------------------------------- */
+
+.content img {
+  border: 1px solid rgba(0, 240, 255, 0.28);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.content img:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 26px rgba(0, 240, 255, 0.22);
+}
+
+/* --- scrollbar ---------------------------------------------------------- */
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb {
+  background: var(--raised);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--violet); }
+
+/* --- selection ---------------------------------------------------------- */
+
+::selection { background: var(--cyan); color: var(--void); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
