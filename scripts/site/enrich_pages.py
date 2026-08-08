@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Rebuild the key pages with real block layout — columns, groups, buttons."""
-import json, os, subprocess
+import json, os, subprocess, time
 
 URL = "https://aurasoft.co/wp-json/wp/v2/wpmcp/streamable"
 TOKEN = os.environ["WP_MCP_TOKEN"]
@@ -164,32 +164,152 @@ SERVICES_TAIL = "\n\n".join([
 ])
 
 
-def get_page(pid):
-    r = call("wp_get_page", {"id": pid})
-    return json.loads(r["result"]["content"][0]["text"])
+def ul(items):
+    li = "".join(f"<li>{i}</li>" for i in items)
+    return f'<!-- wp:list -->\n<ul class="wp-block-list">{li}</ul>\n<!-- /wp:list -->'
+
+
+SERVICES = "\n\n".join([
+    eyebrow("Client work"),
+    h("What we build for clients", 1),
+    p("We take on client work in the same three areas we work in ourselves. Small "
+      "enough to care, experienced enough to ship.", "aura-lead"),
+    sep(),
+    h("Game Development"),
+    p("Full-cycle mobile game development, Android and iOS. We come in at any stage — "
+      "a concept on a napkin, a prototype that stalled, or a live game that needs a "
+      "team who can pick it up without breaking it."),
+    ul(["Unity and Unreal",
+        "Native tooling — Android Studio and Xcode, so builds behave on real devices",
+        "Gameplay programming, systems design, level design",
+        "Full art production — characters, environments, VFX, UI",
+        "Store release, ASO, live-ops and post-launch updates"]),
+    h("App &amp; Software Development"),
+    p("Mobile apps and custom software. The same engineers who ship games under "
+      "deadline — which tends to show in how the work holds up."),
+    ul(["Native mobile apps — Android Studio and Xcode, Java for Android",
+        "Backends, APIs, automation and tooling in Python",
+        "Desktop and simulation work in Unity or Unreal where it fits better than a "
+        "web stack",
+        "Maintenance and support after launch"]),
+    h("Art &amp; Asset Production"),
+    p("Art production for studios who need more hands. Work to your style guide, in "
+      "your pipeline, at your quality bar."),
+    ul(["3D — characters, props, environments, game-ready and PBR textured",
+        "2D — concept art, sprites, backgrounds, marketing art",
+        "UI/UX — full interface kits, icons, HUD design",
+        "Outsourcing at scale, or a single pack"]),
+    SERVICES_TAIL,
+])
+
+GAMES = "\n\n".join([
+    eyebrow("Shipped work"),
+    h("Games we have made", 1),
+    p("Everything here we made ourselves — design, art, code, release. Some are ours, "
+      "some were built with partners. All of them shipped.", "aura-lead"),
+    sep(),
+    cols(
+        card("Game title", "Key art, a line on what the game is, and store links go "
+                           "here. Replace this card with a real title.", "cyan"),
+        card("Game title", "One or two sentences on what makes it worth playing. "
+                           "Platform badges sit underneath.", "violet"),
+        card("In development", "Unreleased work belongs on the page too — showing it "
+                               "signals momentum rather than a gap.", "magenta"),
+    ),
+    sep(),
+    eyebrow("How they are built"),
+    h("Built with"),
+    p("Unity and Unreal for the games themselves, with Android Studio and Xcode for "
+      "the native side — so builds behave on real devices, not just in the editor."),
+    p("Unity · Unreal · Android Studio · Xcode · Java · Python", "aura-chips"),
+    btn("Talk to us about a project", "/contact/"),
+])
+
+ABOUT = "\n\n".join([
+    eyebrow("The studio"),
+    h("A studio in two places", 1),
+    p("Aurasoft started in 2018 and works across Australia and Pakistan. We build our "
+      "own games, take on client work we find interesting, and sell the art we make "
+      "along the way.", "aura-lead"),
+    p("The split is not an accident. It gives us close contact with clients in "
+      "Australia and a strong production team in Pakistan — and between them, work "
+      "that keeps moving around the clock."),
+    sep(),
+    eyebrow("What we care about"),
+    h("How we operate"),
+    cols(
+        card("Shipping over talking", "A released build beats a roadmap. We would "
+                                      "rather show you something running.", "cyan"),
+        card("Work that lasts", "Launch is the start of the job, not the end of it. We "
+                                "build for the year after release.", "violet"),
+        card("Straight answers", "We tell clients what something will actually take, "
+                                 "including when the answer is inconvenient.", "magenta"),
+    ),
+    sep(),
+    eyebrow("Where we are"),
+    h("Offices"),
+    cols(
+        card("Australia", "Client-facing team, close to the timezone most of our "
+                          "partners work in.", "cyan"),
+        card("Pakistan", "Production team — engineering and art, at scale.", "violet"),
+    ),
+    sep(),
+    h("The team"),
+    p("<em>Team profiles go here — names, roles and photos.</em>"),
+    btn("Work with us", "/contact/"),
+])
+
+CONTACT = "\n\n".join([
+    eyebrow("Get in touch"),
+    h("Tell us what you are building", 1),
+    p("Client project, asset question, or you just want to talk shop — we read "
+      "everything and reply properly.", "aura-lead"),
+    p("We reply within one business day. Both our timezones count."),
+    sep(),
+    eyebrow("What is it about"),
+    h("Three things people usually ask us"),
+    cols(
+        card("A game", "You have a concept, a stalled prototype, or a live title that "
+                       "needs a team. Tell us where it is now.", "cyan"),
+        card("Software", "An app or a custom build. The more you can say about scope, "
+                         "the more useful our first reply will be.", "violet"),
+        card("Assets", "A pack question, a licence question, or custom art production "
+                       "for your pipeline.", "magenta"),
+    ),
+    sep(),
+    h("Reach us"),
+    p("<em>Contact form goes here. Until then, add your email address and social "
+      "links.</em>"),
+    p("Australia · Pakistan"),
+])
+
+# Page IDs on the live site, created by build_pages.py.
+PAGES = (
+    (9,  HOME,     "Home"),
+    (10, GAMES,    "Games"),
+    (11, SERVICES, "Services"),
+    (12, ASSETS,   "Assets"),
+    (13, ABOUT,    "About"),
+    (14, CONTACT,  "Contact"),
+)
 
 
 def main():
-    # Home and Assets get full rebuilds.
-    for pid, content, name in ((9, HOME, "Home"), (12, ASSETS, "Assets")):
-        r = call("wp_update_page", {"id": pid, "content": content})
-        ok = "error" not in r
-        print(f"  {'OK  ' if ok else 'FAIL'} {name}"
-              + ("" if ok else f" — {r['error'].get('message')}"))
-
-    # Services keeps its written detail; we replace the tail with laid-out blocks.
-    cur = get_page(11)
-    body = cur.get("content", {})
-    body = body.get("raw") or body.get("rendered") or ""
-    cut = body.find("<!-- wp:separator -->\n<hr class=\"wp-block-separator\"/>\n<!-- /wp:separator -->\n\n<!-- wp:heading -->\n<h2>How we work</h2>")
-    if cut == -1:
-        cut = body.find("How we work")
-        cut = body.rfind("<!-- wp:separator -->", 0, cut) if cut > 0 else -1
-    if cut > 0:
-        r = call("wp_update_page", {"id": 11, "content": body[:cut] + SERVICES_TAIL})
-        print(f"  {'OK  ' if 'error' not in r else 'FAIL'} Services")
-    else:
-        print("  SKIP Services — could not locate the tail to replace")
+    for pid, content, name in PAGES:
+        # The proxy in front of this sandbox resets connections intermittently,
+        # so each write gets a few attempts before it counts as a failure.
+        for attempt in range(5):
+            try:
+                r = call("wp_update_page", {"id": pid, "content": content})
+                ok = "error" not in r
+                print(f"  {'OK  ' if ok else 'FAIL'} {name}"
+                      + ("" if ok else f" — {r['error'].get('message')}"))
+                break
+            except Exception as exc:
+                if attempt == 4:
+                    print(f"  FAIL {name} — {exc}")
+                else:
+                    time.sleep(2 ** attempt)
 
 
 if __name__ == "__main__":
