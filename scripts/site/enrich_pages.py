@@ -88,6 +88,10 @@ def eyebrow(t):
 
 # ---- pages ---------------------------------------------------------------
 
+# Storefronts. Keep these here rather than inline so a change is one edit.
+ITCH_STUDIO = "https://auragamestudio.itch.io"
+ITCH_DEV = "https://rehandev.itch.io"
+
 HOME = "\n\n".join([
     eyebrow("Game &amp; software studio · Australia + Pakistan · est. 2018"),
     h("We make games. And the tools to build them.", 1),
@@ -141,9 +145,18 @@ ASSETS = "\n\n".join([
                         "Consistent, scalable and drop-in.", "magenta"),
     ),
     sep(),
-    h("Where to buy"),
-    p("Most of our packs are on itch.io. <em>Store link goes here.</em>"),
-    btn("Browse the store", "#"),
+    eyebrow("Where to buy"),
+    h("Our itch.io stores"),
+    p("Everything we release is on itch.io. Two storefronts — the studio's, and our "
+      "lead developer's."),
+    cols(
+        card("Aura Game Studio", "The studio storefront — games and asset packs released "
+                                 "under Aurasoft.", "cyan"),
+        card("RehanDev", "Our lead developer's storefront, with additional tools and "
+                         "packs.", "violet"),
+    ),
+    btnrow([("Aura Game Studio on itch.io", ITCH_STUDIO),
+            ("RehanDev on itch.io", ITCH_DEV)]),
 ])
 
 SERVICES_TAIL = "\n\n".join([
