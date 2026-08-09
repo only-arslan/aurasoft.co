@@ -96,7 +96,11 @@ PLAY_DEV = "https://play.google.com/store/apps/dev?id=6340776414296526480"
 # Published titles. Add a row per game — the Play URL is derived from the
 # package id, so only the human-facing copy needs writing.
 GAMES_LIST = [
-    ("com.aurasoft.CryptoPOP", "CryptoPOP", "", "cyan"),
+    ("com.aurasoft.CryptoPOP", "CryptoPOP",
+     "A crypto-themed arcade popper. Match, chain and clear the board in quick "
+     "rounds that get meaner the longer you last — and a high score that is never "
+     "quite safe.",
+     "cyan"),
 ]
 
 
