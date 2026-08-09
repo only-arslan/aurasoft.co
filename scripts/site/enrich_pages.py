@@ -93,6 +93,29 @@ ITCH_STUDIO = "https://auragamestudio.itch.io"
 ITCH_DEV = "https://rehandev.itch.io"
 PLAY_DEV = "https://play.google.com/store/apps/dev?id=6340776414296526480"
 
+# Published titles. Add a row per game — the Play URL is derived from the
+# package id, so only the human-facing copy needs writing.
+GAMES_LIST = [
+    ("com.aurasoft.CryptoPOP", "CryptoPOP", "", "cyan"),
+]
+
+
+def play_url(package):
+    return f"https://play.google.com/store/apps/details?id={package}"
+
+
+def game_cards():
+    """One card per published title, falling back to a visible TODO for any
+    game whose blurb has not been written yet — better an obvious gap than
+    invented copy about a real product."""
+    out = []
+    for pkg, title, blurb, hue in GAMES_LIST:
+        text = blurb or "<em>Description needed.</em>"
+        out.append(card(title, text, hue))
+    return cols(*out) if out else ""
+
+
+
 HOME = "\n\n".join([
     eyebrow("Game &amp; software studio · Australia + Pakistan · est. 2018"),
     h("We make games. And the tools to build them.", 1),
@@ -237,8 +260,8 @@ GAMES = "\n\n".join([
     sep(),
     eyebrow("Selected titles"),
     h("Featured games"),
-    p("<em>Individual game cards go here — key art, a line on each title, and a direct "
-      "store link. Pulled from the Play Store listings.</em>"),
+    game_cards(),
+    btnrow([("CryptoPOP on Google Play", play_url("com.aurasoft.CryptoPOP"))]),
     sep(),
     eyebrow("How they are built"),
     h("Built with"),
