@@ -91,6 +91,7 @@ def eyebrow(t):
 # Storefronts. Keep these here rather than inline so a change is one edit.
 ITCH_STUDIO = "https://auragamestudio.itch.io"
 ITCH_DEV = "https://rehandev.itch.io"
+PLAY_DEV = "https://play.google.com/store/apps/dev?id=6340776414296526480"
 
 HOME = "\n\n".join([
     eyebrow("Game &amp; software studio · Australia + Pakistan · est. 2018"),
@@ -220,15 +221,24 @@ GAMES = "\n\n".join([
     h("Games we have made", 1),
     p("Everything here we made ourselves — design, art, code, release. Some are ours, "
       "some were built with partners. All of them shipped.", "aura-lead"),
+    btnrow([("See all our games on Google Play", PLAY_DEV),
+            ("Browse our itch.io store", ITCH_STUDIO)]),
     sep(),
+    eyebrow("Where to play"),
+    h("On the stores"),
     cols(
-        card("Game title", "Key art, a line on what the game is, and store links go "
-                           "here. Replace this card with a real title.", "cyan"),
-        card("Game title", "One or two sentences on what makes it worth playing. "
-                           "Platform badges sit underneath.", "violet"),
-        card("In development", "Unreleased work belongs on the page too — showing it "
-                               "signals momentum rather than a gap.", "magenta"),
+        card("Google Play", "Our Android catalogue lives on Google Play under the "
+                            "Aurasoft developer profile.", "cyan"),
+        card("itch.io", "Builds, prototypes and asset packs go up on itch.io, often "
+                        "before they reach the app stores.", "violet"),
+        card("iOS", "Selected titles ship to the App Store, built natively in Xcode "
+                    "alongside the Android release.", "magenta"),
     ),
+    sep(),
+    eyebrow("Selected titles"),
+    h("Featured games"),
+    p("<em>Individual game cards go here — key art, a line on each title, and a direct "
+      "store link. Pulled from the Play Store listings.</em>"),
     sep(),
     eyebrow("How they are built"),
     h("Built with"),
