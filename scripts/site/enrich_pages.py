@@ -119,10 +119,10 @@ PLAY_DEV = "https://play.google.com/store/apps/dev?id=6340776414296526480"
 GAMESBOLT_PKG = "com.auragames.gamesbolt"
 
 GAMES_LIST = [
-    ("com.aurasoft.CryptoPOP", "CryptoPOP",
-     "A crypto-themed arcade popper. Match, chain and clear the board in quick "
-     "rounds that get meaner the longer you last — and a high score that is never "
-     "quite safe.",
+    ("com.aurasoft.CryptoPOP", "Crypto Blast — Bitcoin Beach",
+     "A match-and-pop puzzle game wrapped in crypto art. Hundreds of levels, each "
+     "with its own layout and objectives, plus boosters and power-ups for when a "
+     "board turns stubborn. Every icon from Bitcoin to Ethereum.",
      "cyan"),
 ]
 
@@ -149,10 +149,9 @@ HOME = "\n\n".join([
     p("Aurasoft ships mobile titles, builds software for clients, and sells the 3D, "
       "2D and UI assets we make along the way. Three things, one craft.", "aura-lead"),
     btnrow([("Play our games", "/games/"), ("Browse assets", "/assets/")]),
-    featured("GamesBolt",
-             "Latest release · now live on Google Play",
-             "Our newest title, just out on Google Play. Built in-house — design, art "
-             "and code — and supported with updates from here on.",
+    featured("GamesBolt: Free Game Deals",
+             "Latest release · free-game finder · now on Google Play",
+             "Games that normally cost money go free for a few days every week — scattered across a dozen storefronts, with nobody telling you it is happening. GamesBolt puts all of it in one place: what is free right now, the offer closing soonest first, grouped by the store you would claim it from.",
              play_url(GAMESBOLT_PKG),
              "Get GamesBolt on Google Play"),
     sep(),
@@ -280,10 +279,13 @@ GAMES = "\n\n".join([
     btnrow([("See all our games on Google Play", PLAY_DEV),
             ("Browse our itch.io store", ITCH_STUDIO)]),
     sep(),
-    featured("GamesBolt",
-             "Latest release · now live on Google Play",
-             "Our newest title, just released on Google Play. Built in-house — "
-             "design, art and code — and supported with updates from here on.",
+    featured("GamesBolt: Free Game Deals",
+             "Latest release · free-game finder · now on Google Play",
+             "Games that normally cost money go free for a few days every week — "
+             "scattered across a dozen storefronts, with nobody telling you it is "
+             "happening. GamesBolt puts all of it in one place: what is free right "
+             "now, the offer closing soonest first, grouped by the store you would "
+             "claim it from.",
              play_url(GAMESBOLT_PKG),
              "Get GamesBolt on Google Play"),
     sep(),
