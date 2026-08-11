@@ -109,14 +109,18 @@ a:focus-visible {
 
 /* --- page title bar ----------------------------------------------------- */
 
+/* The7 prints the page title as its own <h1> above the content, which gives
+   every page two H1s — bad for search engines and confusing for screen
+   readers, since the content's own H1 is the meaningful one. Hide the bar
+   entirely: the content headline says the same thing, better. */
 .page-title,
-.page-title.solid-bg {
-  background: var(--void) !important;
-  border-bottom: 1px solid var(--edge);
-}
-.page-title h1 { color: var(--text-hi) !important; }
+.page-title.solid-bg,
+.page-title-responsive-enabled { display: none !important; }
+
+/* Keep the styling in case the bar is ever re-enabled. */
+.page-title h1 { color: var(--text-hi); }
 .page-title .breadcrumbs,
-.page-title .breadcrumbs a { color: var(--text-low) !important; }
+.page-title .breadcrumbs a { color: var(--text-low); }
 
 /* --- layout: these are landing pages, not blog posts --------------------- */
 

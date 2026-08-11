@@ -107,6 +107,67 @@ def featured(title, kicker, blurb, href, cta):
 
 
 
+
+
+def schema(payload):
+    """Emit JSON-LD as a raw HTML block. Google reads structured data anywhere
+    in the document, so this works without an SEO plugin owning <head>."""
+    body = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+    return ('<!-- wp:html -->\n'
+            f'<script type="application/ld+json">{body}</script>\n'
+            '<!-- /wp:html -->')
+
+
+ORG_SCHEMA = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Aurasoft",
+    "alternateName": "Aura Game Studio",
+    "url": "https://aurasoft.co",
+    "foundingDate": "2018",
+    "description": ("Game and software studio building mobile titles, custom "
+                    "software and game-ready 3D, 2D and UI assets."),
+    "email": "arslan.aurasoft@gmail.com",
+    "areaServed": ["AU", "PK"],
+    "address": [
+        {"@type": "PostalAddress", "addressCountry": "AU"},
+        {"@type": "PostalAddress", "addressCountry": "PK"},
+    ],
+    "sameAs": [
+        "https://play.google.com/store/apps/dev?id=6340776414296526480",
+        "https://auragamestudio.itch.io",
+        "https://rehandev.itch.io",
+    ],
+}
+
+
+def games_schema():
+    """One SoftwareApplication per title, wrapped in an ItemList. This is what
+    lets a search engine understand the page as a catalogue of apps rather than
+    a wall of prose."""
+    items = []
+    for i, (pkg, title, genre, blurb, _hue) in enumerate(GAMES_LIST, start=1):
+        items.append({
+            "@type": "ListItem",
+            "position": i,
+            "item": {
+                "@type": "SoftwareApplication",
+                "name": title.replace("&amp;", "&"),
+                "description": blurb,
+                "applicationCategory": "GameApplication",
+                "applicationSubCategory": genre,
+                "operatingSystem": "Android",
+                "url": play_url(pkg),
+                "author": {"@type": "Organization", "name": "Aurasoft"},
+                "offers": {"@type": "Offer", "price": "0",
+                           "priceCurrency": "USD"},
+            },
+        })
+    return {"@context": "https://schema.org", "@type": "ItemList",
+            "name": "Games by Aurasoft", "numberOfItems": len(items),
+            "itemListElement": items}
+
+
 # ---- pages ---------------------------------------------------------------
 
 # Storefronts. Keep these here rather than inline so a change is one edit.
@@ -218,6 +279,7 @@ HOME = "\n\n".join([
     p("Tell us what you are making. We will tell you straight whether we are the right "
       "studio for it.", "aura-lead"),
     btn("Start a conversation", "/contact/"),
+    schema(ORG_SCHEMA),
 ])
 
 ASSETS = "\n\n".join([
@@ -340,6 +402,7 @@ GAMES = "\n\n".join([
     p("Arcade, racing, puzzle, cards, trivia and simulation — built end to end and "
       "kept updated after release. Tap any title to open its store page."),
     game_cards(),
+    schema(games_schema()),
     sep(),
     eyebrow("How they are built"),
     h("Built with"),
