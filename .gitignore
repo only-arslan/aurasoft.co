@@ -37,3 +37,7 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
+
+# Python bytecode — build artifact, regenerated on every run
+__pycache__/
+*.py[cod]
