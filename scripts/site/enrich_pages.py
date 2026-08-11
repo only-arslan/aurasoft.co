@@ -364,8 +364,12 @@ CONTACT = "\n\n".join([
     ),
     sep(),
     h("Reach us"),
-    p("<em>Contact form goes here. Until then, add your email address and social "
-      "links.</em>"),
+    p("Email us directly at "
+      "<a href=\"mailto:arslan.aurasoft@gmail.com\">arslan.aurasoft@gmail.com</a> "
+      "and we will come back to you within one business day."),
+    p("You can also find our work on "
+      f"<a href=\"{PLAY_DEV}\">Google Play</a> and "
+      f"<a href=\"{ITCH_STUDIO}\">itch.io</a>."),
     p("Australia · Pakistan"),
 ])
 

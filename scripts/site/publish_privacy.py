@@ -15,7 +15,8 @@ def ul(items):
     return f'<!-- wp:list -->\n<ul class="wp-block-list">{li}</ul>\n<!-- /wp:list -->'
 
 
-EMAIL = "[YOUR CONTACT EMAIL]"
+EMAIL = "arslan.aurasoft@gmail.com"
+PRIVACY_PAGE_ID = 33
 
 CONTENT = "\n\n".join([
     eyebrow("Legal · last updated 9 August 2026"),
@@ -141,7 +142,7 @@ CONTENT = "\n\n".join([
 
     h("Contact us"),
     p("Questions about this policy, or about the information we hold, can be sent to:"),
-    p(f"<strong>{EMAIL}</strong>"),
+    p(f'<strong><a href="mailto:{EMAIL}">{EMAIL}</a></strong>'),
     p("Aurasoft — Australia &amp; Pakistan"),
 ])
 
@@ -149,11 +150,9 @@ CONTENT = "\n\n".join([
 def main():
     for attempt in range(5):
         try:
-            r = m.call("wp_add_page", {
-                "title": "Privacy Policy",
-                "slug": "privacy",
+            r = m.call("wp_update_page", {
+                "id": PRIVACY_PAGE_ID,
                 "content": CONTENT,
-                "status": "publish",
             })
             if "error" in r:
                 print("  FAIL:", r["error"].get("message")); return
