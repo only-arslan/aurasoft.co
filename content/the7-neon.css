@@ -295,6 +295,22 @@ body#the7-body .dt-btn {
   color: var(--text-mid);
 }
 
+/* Genre tag on a game card — the store's own category, so the grid can be
+   scanned by what each game actually is. */
+.content .aura-genre {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-low);
+  margin: 0 0 0.45rem;
+}
+.content .aura-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.content .aura-card h3 a:hover { text-decoration: underline; }
+
 .content .aura-chips {
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.9rem;

@@ -119,11 +119,38 @@ PLAY_DEV = "https://play.google.com/store/apps/dev?id=6340776414296526480"
 GAMESBOLT_PKG = "com.auragames.gamesbolt"
 
 GAMES_LIST = [
-    ("com.aurasoft.CryptoPOP", "Crypto Blast — Bitcoin Beach",
-     "A match-and-pop puzzle game wrapped in crypto art. Hundreds of levels, each "
-     "with its own layout and objectives, plus boosters and power-ups for when a "
-     "board turns stubborn. Every icon from Bitcoin to Ethereum.",
+    ("com.games.CopPursuit.police.car.chass", "Pursuit 2: Chase &amp; Shoot", "Arcade",
+     "Sirens behind you, open road ahead. A top-down police chase built on a "
+     "wave-based bounty system, so it escalates instead of looping forever.",
      "cyan"),
+    ("com.auragames.BhabhiThullaTheGateway", "Bhabhi Thulla: The Gateway", "Cards",
+     "The South Asian card game you grew up playing, fully online and properly "
+     "animated. Fast 2-to-4 player matches against friends.",
+     "violet"),
+    ("com.AuraGames.TriviaSportsQuiz", "Trivia Sports Quiz", "Trivia",
+     "Over 1,800 questions across nine sports. Pick your category and find out "
+     "whether you actually know the game or just watch it.",
+     "magenta"),
+    ("com.Auragame.Boat.Stunt.Racing3D", "Boat Stunt Racing 3D", "Racing",
+     "High-speed powerboat and jet ski racing across more than 40 locations, with "
+     "water physics that make every jump land differently.",
+     "cyan"),
+    ("com.Aurasoft.GearShiftRacer", "GearShift Racer", "Racing",
+     "Endless freeway traffic racing. Weave the gaps at speed, keep the throttle "
+     "down, and see how long your nerve holds.",
+     "violet"),
+    ("com.aurasoft.CryptoPOP", "Crypto Blast — Bitcoin Beach", "Puzzle",
+     "A match-and-pop puzzler wrapped in crypto art. Hundreds of levels with their "
+     "own layouts and objectives, plus boosters for when a board turns stubborn.",
+     "magenta"),
+    ("com.aurasoft.FoxyBubbleShooterPopGun", "Wolfy Bubble Shooter", "Puzzle",
+     "A classic bubble shooter with no rush and no clutter. Line up three, clear "
+     "the board, and let your head empty out for a while.",
+     "cyan"),
+    ("com.auragames.pet.puppy.dog.Simulator", "My Virtual Puppy", "Simulation",
+     "Raise a puppy — feed it, play with it, look after it. A gentle pet sim that "
+     "is as much about the responsibility as the fun.",
+     "violet"),
 ]
 
 
@@ -132,15 +159,23 @@ def play_url(package):
 
 
 def game_cards():
-    """One card per published title, falling back to a visible TODO for any
-    game whose blurb has not been written yet — better an obvious gap than
-    invented copy about a real product."""
+    """One card per published title. The genre tag is the store's own category,
+    so the grid can be scanned by what a game actually is."""
     out = []
-    for pkg, title, blurb, hue in GAMES_LIST:
-        text = blurb or "<em>Description needed.</em>"
-        out.append(card(title, text, hue))
-    return cols(*out) if out else ""
-
+    for pkg, title, genre, blurb, hue in GAMES_LIST:
+        body = (f'<!-- wp:paragraph {{"className":"aura-genre"}} -->\n'
+                f'<p class="aura-genre">{genre}</p>\n<!-- /wp:paragraph -->'
+                f'<!-- wp:heading {{"level":3}} -->\n'
+                f'<h3 class="wp-block-heading">'
+                f'<a href="{play_url(pkg)}">{title}</a></h3>\n<!-- /wp:heading -->'
+                f'<!-- wp:paragraph -->\n<p>{blurb}</p>\n<!-- /wp:paragraph -->')
+        out.append(f'<!-- wp:group {{"className":"aura-card aura-{hue}"}} -->\n'
+                   f'<div class="wp-block-group aura-card aura-{hue}">{body}</div>\n'
+                   f'<!-- /wp:group -->')
+    rows = []
+    for i in range(0, len(out), 3):
+        rows.append(cols(*out[i:i + 3]))
+    return "\n\n".join(rows)
 
 
 HOME = "\n\n".join([
@@ -300,10 +335,11 @@ GAMES = "\n\n".join([
                     "alongside the Android release.", "magenta"),
     ),
     sep(),
-    eyebrow("Selected titles"),
-    h("Featured games"),
+    eyebrow("The catalogue"),
+    h("Eight games on Google Play"),
+    p("Arcade, racing, puzzle, cards, trivia and simulation — built end to end and "
+      "kept updated after release. Tap any title to open its store page."),
     game_cards(),
-    btnrow([("CryptoPOP on Google Play", play_url("com.aurasoft.CryptoPOP"))]),
     sep(),
     eyebrow("How they are built"),
     h("Built with"),
