@@ -86,6 +86,27 @@ def eyebrow(t):
     return p(t, "aura-eyebrow")
 
 
+def featured(title, kicker, blurb, href, cta):
+    """Hero treatment for the newest release. Deliberately one per page —
+    a 'featured' section that features three things features nothing."""
+    return (
+        '<!-- wp:group {"className":"aura-featured"} -->\n'
+        '<div class="wp-block-group aura-featured">'
+        f'<!-- wp:paragraph {{"className":"aura-kicker"}} -->\n'
+        f'<p class="aura-kicker">{kicker}</p>\n<!-- /wp:paragraph -->'
+        f'<!-- wp:heading {{"level":2,"className":"aura-featured-title"}} -->\n'
+        f'<h2 class="wp-block-heading aura-featured-title">{title}</h2>\n'
+        '<!-- /wp:heading -->'
+        f'<!-- wp:paragraph -->\n<p>{blurb}</p>\n<!-- /wp:paragraph -->'
+        '<!-- wp:buttons -->\n<div class="wp-block-buttons">'
+        '<!-- wp:button {"className":"aura-btn"} -->\n'
+        '<div class="wp-block-button aura-btn">'
+        f'<a class="wp-block-button__link wp-element-button" href="{href}">{cta}</a>'
+        '</div>\n<!-- /wp:button --></div>\n<!-- /wp:buttons -->'
+        '</div>\n<!-- /wp:group -->')
+
+
+
 # ---- pages ---------------------------------------------------------------
 
 # Storefronts. Keep these here rather than inline so a change is one edit.
@@ -95,6 +116,8 @@ PLAY_DEV = "https://play.google.com/store/apps/dev?id=6340776414296526480"
 
 # Published titles. Add a row per game — the Play URL is derived from the
 # package id, so only the human-facing copy needs writing.
+GAMESBOLT_PKG = "com.auragames.gamesbolt"
+
 GAMES_LIST = [
     ("com.aurasoft.CryptoPOP", "CryptoPOP",
      "A crypto-themed arcade popper. Match, chain and clear the board in quick "
@@ -126,6 +149,12 @@ HOME = "\n\n".join([
     p("Aurasoft ships mobile titles, builds software for clients, and sells the 3D, "
       "2D and UI assets we make along the way. Three things, one craft.", "aura-lead"),
     btnrow([("Play our games", "/games/"), ("Browse assets", "/assets/")]),
+    featured("GamesBolt",
+             "Latest release · now live on Google Play",
+             "Our newest title, just out on Google Play. Built in-house — design, art "
+             "and code — and supported with updates from here on.",
+             play_url(GAMESBOLT_PKG),
+             "Get GamesBolt on Google Play"),
     sep(),
     eyebrow("What we do"),
     h("Three lines of work that feed each other"),
@@ -250,6 +279,13 @@ GAMES = "\n\n".join([
       "some were built with partners. All of them shipped.", "aura-lead"),
     btnrow([("See all our games on Google Play", PLAY_DEV),
             ("Browse our itch.io store", ITCH_STUDIO)]),
+    sep(),
+    featured("GamesBolt",
+             "Latest release · now live on Google Play",
+             "Our newest title, just released on Google Play. Built in-house — "
+             "design, art and code — and supported with updates from here on.",
+             play_url(GAMESBOLT_PKG),
+             "Get GamesBolt on Google Play"),
     sep(),
     eyebrow("Where to play"),
     h("On the stores"),
