@@ -1,17 +1,19 @@
 <?php
 /**
- * Plugin Name: Set Aurasoft logo across every The7 header variant
+ * Plugin Name: Set Aurasoft site identity (logo + top-bar phone) in The7
  * Description: Points every logo slot The7 knows about (main header, mobile,
  *              bottom bar, transparent/floating/mixed header styles) at the
- *              uploaded Aurasoft logo, instead of the theme's bundled skin
- *              placeholder images.
+ *              uploaded Aurasoft logo instead of the theme's bundled skin
+ *              placeholder images, and clears the demo phone number
+ *              ("011 322 44 56") from the top bar.
  *
- * The7 stores its logo fields in a single options row named after the theme
- * ("the7"), each as [relative_url, attachment_id] — confirmed by reading the
- * options-framework's own of_sanitize_upload() sanitizer rather than guessed.
- * No admin-facing "logo" setting exists in wp-admin for this theme separate
- * from Theme Options screens the account using this site could not locate, so
- * this writes the same value the UI would have written.
+ * The7 stores both of these in a single options row named after the theme
+ * ("the7") — the logo fields as [relative_url, attachment_id], the phone as
+ * a plain caption string — confirmed by reading options-framework's
+ * of_sanitize_upload() sanitizer and presscore_top_bar_contact_element() in
+ * the theme source rather than guessed. presscore_top_bar_contact_element()
+ * skips rendering entirely when the caption is empty, so clearing it removes
+ * the top-bar phone element outright rather than leaving a blank slot.
  *
  * Idempotent: only writes to the database when a value actually differs, so
  * it is cheap to leave in place and safe to run on every page load.
@@ -58,6 +60,20 @@ add_action( 'init', function () {
 	foreach ( $keys as $key ) {
 		if ( ( $options[ $key ] ?? null ) !== $value ) {
 			$options[ $key ] = $value;
+			$changed         = true;
+		}
+	}
+
+	// Demo placeholder phone number in the top bar ("011 322 44 56"). An
+	// empty caption makes presscore_top_bar_contact_element() skip the
+	// element entirely rather than rendering an empty link.
+	$phone_keys = array(
+		'header-elements-contact-phone-caption',
+		'header-elements-contact-phone-url',
+	);
+	foreach ( $phone_keys as $key ) {
+		if ( ( $options[ $key ] ?? '' ) !== '' ) {
+			$options[ $key ] = '';
 			$changed         = true;
 		}
 	}

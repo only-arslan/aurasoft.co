@@ -93,6 +93,21 @@ a:focus-visible {
   outline-offset: 3px;
 }
 
+/* --- logo ----------------------------------------------------------------
+   The uploaded logo is an 800x800 source file. The7 expects a logo image
+   pre-sized to its display size (its own placeholder art was a literal
+   57x57px file) and applies no size constraint of its own, so at native size
+   it rendered near full height and the lower half of the image — the
+   wordmark portion — physically overlapped page content below the header.
+   Targeting by alt text rather than a wrapper class, since the header and
+   bottom-bar logo <img> tags carry no distinguishing class of their own. */
+
+img[alt="Aurasoft"] {
+  max-height: 48px !important;
+  width: auto !important;
+  height: auto !important;
+}
+
 /* --- header ------------------------------------------------------------- */
 
 .masthead,
