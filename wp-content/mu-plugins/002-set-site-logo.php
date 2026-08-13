@@ -78,6 +78,21 @@ add_action( 'init', function () {
 		}
 	}
 
+	// Footer credit line. bottom-bar.php echoes "Dream-Theme — truly premium
+	// WordPress themes" whenever bottom_bar-credits is truthy, found by
+	// reading template-parts/footer/bottom-bar.php directly. Turning it off
+	// and filling bottom_bar-copyrights replaces it with our own line.
+	$footer = array(
+		'bottom_bar-credits'    => '',
+		'bottom_bar-copyrights' => '&copy; ' . gmdate( 'Y' ) . ' Aurasoft. All rights reserved.',
+	);
+	foreach ( $footer as $key => $val ) {
+		if ( ( $options[ $key ] ?? null ) !== $val ) {
+			$options[ $key ] = $val;
+			$changed         = true;
+		}
+	}
+
 	if ( $changed ) {
 		update_option( 'the7', $options );
 	}
